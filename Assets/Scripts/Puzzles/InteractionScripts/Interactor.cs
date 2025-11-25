@@ -7,6 +7,9 @@ interface IInteractable {
     public void Interact();
     // Get script instance for UI button
     public InteractButton GetInteractButton();
+
+    // returns bool if already interacted with, in which case cannot be interacted with again
+    public bool HasInteracted();
 }
 
 public class Interactor : MonoBehaviour
@@ -36,17 +39,20 @@ public class Interactor : MonoBehaviour
         Ray r = new Ray(InteractorSource.position, InteractorSource.forward);
         if (Physics.Raycast(r, out RaycastHit hitInfo, InteractRange, mask)) {
             if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj)) {
-                if (lastHoveredObj != hitInfo.collider.gameObject) {
-                    if (lastHoveredObj != null) {
-                        lastHoveredObj.GetComponent<IInteractable>().GetInteractButton().HideButton();
+                if (hitInfo.collider.gameObject.GetComponent<IInteractable>().HasInteracted() == false) {
+                    if (lastHoveredObj != hitInfo.collider.gameObject) {
+                        if (lastHoveredObj != null) {
+                            lastHoveredObj.GetComponent<IInteractable>().GetInteractButton().HideButton();
+                        }
+
+                        lastHoveredObj = hitInfo.collider.gameObject;
+                        lastHoveredObj.GetComponent<IInteractable>().GetInteractButton().ShowButton();
                     }
 
-                    lastHoveredObj = hitInfo.collider.gameObject;
-                    lastHoveredObj.GetComponent<IInteractable>().GetInteractButton().ShowButton();
-                }
-                
-                if (Input.GetKeyDown(KeyCode.E)) {
-                    interactObj.Interact();
+                    if (Input.GetKeyDown(KeyCode.E)) {
+                        interactObj.Interact();
+                        hitInfo.collider.gameObject.GetComponent<IInteractable>().GetInteractButton().HideButton();
+                    }
                 }
             }
         } else {
