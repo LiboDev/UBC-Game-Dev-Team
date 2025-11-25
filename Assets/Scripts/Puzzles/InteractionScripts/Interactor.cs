@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Scripts that are triggered when the interactable is interacted with
+public interface IMechanism {
+    public void Activate();
+}
+
 interface IInteractable {
-    // Trigger event with button press
+    // Interact with button press
     public void Interact();
     // Get script instance for UI button
     public InteractButton GetInteractButton();
@@ -21,20 +26,7 @@ public class Interactor : MonoBehaviour
     // Last obj hovered over
     public GameObject lastHoveredObj;
 
-    void Start() {
-        
-    }
-
-    // Update is called once per frame
     void Update() {
-/*        if (Input.GetKeyDown(KeyCode.E)) {
-            Ray r = new Ray(InteractorSource.position, InteractorSource.forward);
-            if (Physics.Raycast(r, out RaycastHit hitInfo, InteractRange)) {
-                if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj)) {
-                    interactObj.Interact();
-                }
-            }
-        }*/
         int mask = LayerMask.GetMask("Interactable");
         Ray r = new Ray(InteractorSource.position, InteractorSource.forward);
         if (Physics.Raycast(r, out RaycastHit hitInfo, InteractRange, mask)) {

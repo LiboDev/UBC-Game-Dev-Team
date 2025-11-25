@@ -570,6 +570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1597d91dc6b78bd459091be3db36f7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ConnectedMechanism: {fileID: 606255098}
   InteractButton: {fileID: 431613753}
   Interacted: 0
 --- !u!1 &219939013
@@ -1074,8 +1075,9 @@ GameObject:
   - component: {fileID: 606255096}
   - component: {fileID: 606255095}
   - component: {fileID: 606255094}
+  - component: {fileID: 606255098}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: ExpandingCubeTestMechanism
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1167,6 +1169,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &606255098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606255093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4fc1f33924005e48992bb02aa9e8904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &626569393
 GameObject:
   m_ObjectHideFlags: 0
@@ -2444,6 +2458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1597d91dc6b78bd459091be3db36f7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ConnectedMechanism: {fileID: 0}
   InteractButton: {fileID: 441097399}
   Interacted: 0
 --- !u!65 &2000534804
