@@ -5,22 +5,24 @@ using UnityEngine;
 public class Candle : MonoBehaviour, IInteractable {
     public MonoBehaviour ConnectedMechanism;
     public InteractButton InteractButton;
-    public bool Interacted = false;
+
+    private bool TurnedOn = false;
 
     public void Interact() {
-        Interacted = true;
         if (ConnectedMechanism != null) {
             IMechanism mechanism = ConnectedMechanism as IMechanism;
-            mechanism.Activate();
+
+            if (TurnedOn) {
+                mechanism.ToggleOff();
+            } else {
+                mechanism.ToggleOn();
+            }
+            TurnedOn = !TurnedOn;
         }
         print("Interacted");
     }
 
     public InteractButton GetInteractButton() {
         return InteractButton;
-    }
-
-    public bool HasInteracted() {
-        return Interacted;
     }
 }
