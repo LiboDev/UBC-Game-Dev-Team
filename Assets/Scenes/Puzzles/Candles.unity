@@ -236,8 +236,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 18868345}
+  - component: {fileID: 18868346}
   m_Layer: 0
-  m_Name: Door
+  m_Name: DoubleDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,6 +263,20 @@ Transform:
   - {fileID: 1883293780}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &18868346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18868344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3dc7327a189daf4f8e9d3eb9e650c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SideDoor1: {fileID: 1014150152}
+  SideDoor2: {fileID: 1883293780}
 --- !u!1 &43955884
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,7 +620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1597d91dc6b78bd459091be3db36f7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ConnectedMechanism: {fileID: 606255098}
+  ConnectedMechanism: {fileID: 18868346}
   InteractButton: {fileID: 431613753}
 --- !u!1 &219939013
 GameObject:
@@ -1821,7 +1836,7 @@ GameObject:
   - component: {fileID: 1014150154}
   - component: {fileID: 1014150153}
   m_Layer: 0
-  m_Name: Side Door
+  m_Name: SideDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2666,7 +2681,7 @@ GameObject:
   - component: {fileID: 1883293782}
   - component: {fileID: 1883293781}
   m_Layer: 0
-  m_Name: Side Door (1)
+  m_Name: SideDoor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
