@@ -1,39 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InteractButton : MonoBehaviour {
-    public Camera cam;
-    public GameObject canvas;
-    public float scaleFactor = 1f;
+    public Camera Cam;
+    public GameObject Canvas;
+    public float ScaleFactor = 1f;
+    public TextMeshProUGUI BottomText;
 
     void Start() {
-        if (cam == null) {
-            cam = Camera.main;
+        if (Cam == null) {
+            Cam = Camera.main;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void LateUpdate() {
         // change scale based on dist
-        float dist = Vector3.Distance(transform.position, cam.transform.position);
-        transform.localScale = Vector3.one * dist * scaleFactor;
+        float dist = Vector3.Distance(transform.position, Cam.transform.position);
+        transform.localScale = Vector3.one * dist * ScaleFactor;
 
         // make button always look at screen
-        transform.LookAt(cam.transform.position);
+        transform.LookAt(Cam.transform.position);
         transform.Rotate(0, 180, 0);
     }
 
+    public void SetBottomText(string text) {
+        BottomText.text = text;
+    }
+
+    public string GetBottomText() {
+        return BottomText.text;
+    }
+
     public void ShowButton() {
-        canvas.SetActive(true);
+        Canvas.SetActive(true);
     }
 
     public void HideButton() {
-        canvas.SetActive(false);
+        Canvas.SetActive(false);
     }
 }

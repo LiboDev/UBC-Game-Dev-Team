@@ -27,12 +27,14 @@ public class Interactor : MonoBehaviour
 
     void Update() {
         int mask = LayerMask.GetMask("Interactable");
+
+        // ray from camera to camera lookat
         Ray r = new Ray(InteractorSource.position, InteractorSource.forward);
+
         if (Physics.Raycast(r, out RaycastHit hitInfo, InteractRange, mask)) {
             if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj)) {
-/*                if (hitInfo.collider.gameObject.GetComponent<IInteractable>().HasInteracted() == false) {
 
-                }*/
+                // check if looking at new interactable
                 if (lastHoveredObj != hitInfo.collider.gameObject) {
                     if (lastHoveredObj != null) {
                         lastHoveredObj.GetComponent<IInteractable>().GetInteractButton().HideButton();

@@ -8,6 +8,22 @@ public class Candle : MonoBehaviour, IInteractable {
 
     private bool TurnedOn = false;
 
+    // text associated with turning off and on
+    private string TurnOnText = "Light Candle";
+    private string TurnOffText = "Extinguish Candle";
+
+    public void Update() {
+        if (TurnedOn) {
+            if (InteractButton.GetBottomText() != TurnOffText) {
+                InteractButton.SetBottomText(TurnOffText);
+            }
+        } else {
+            if (InteractButton.GetBottomText() != TurnOnText) {
+                InteractButton.SetBottomText(TurnOnText);
+            }
+        }
+    }
+
     public void Interact() {
         if (ConnectedMechanism != null) {
             IMechanism mechanism = ConnectedMechanism as IMechanism;
