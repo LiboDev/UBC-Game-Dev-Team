@@ -5,9 +5,12 @@ using UnityEngine;
 public class Lever : MonoBehaviour, IInteractable {
     public MonoBehaviour ConnectedMechanism;
     public InteractButton ButtonUI;
+    public Transform StickPivot;
 
     public float cooldown = 1f;
     private float nextUseTime = 0f;
+
+    private float LeverRotationRange = 70f;
 
     private bool IsEngaged = false;
 
@@ -28,14 +31,8 @@ public class Lever : MonoBehaviour, IInteractable {
     public void Interact() {
         if (ConnectedMechanism != null) {
             if (Time.time >= nextUseTime) {
-                IMechanism mechanism = ConnectedMechanism as IMechanism;
-
-                if (IsEngaged) {
-                    mechanism.ToggleOff();
-                } else {
-                    mechanism.ToggleOn();
-                }
-                IsEngaged = !IsEngaged;
+                StartCoroutine(RotateOverTime(StickPivot, StickPivot.rotation, Quaternion.Euler(StickPivot.eulerAngles + new Vector3(LeverRotationRange, 0, 0)), 0.5f));
+                LeverRotationRange *= -1;
 
                 nextUseTime = Time.time + cooldown;
             }
@@ -52,6 +49,15 @@ public class Lever : MonoBehaviour, IInteractable {
         }
 
         obj.rotation = endRot;
+
+        IMechanism mechanism = ConnectedMechanism as IMechanism;
+
+        if (IsEngaged) {
+            mechanism.ToggleOff();
+        } else {
+            mechanism.ToggleOn();
+        }
+        IsEngaged = !IsEngaged;
     }
 
     public InteractButton GetInteractButton() {

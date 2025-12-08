@@ -1669,6 +1669,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectedMechanism: {fileID: 56296318}
   ButtonUI: {fileID: 891144804}
+  StickPivot: {fileID: 1759244672}
+  cooldown: 1
 --- !u!1 &667415276
 GameObject:
   m_ObjectHideFlags: 0
