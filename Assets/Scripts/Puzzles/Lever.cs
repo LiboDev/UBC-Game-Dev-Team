@@ -14,18 +14,12 @@ public class Lever : MonoBehaviour, IInteractable {
 
     private bool IsEngaged = false;
 
+    // text associated with turning off and on
     private string TurnOnText = "Engage Lever";
     private string TurnOffText = "Disengage Lever";
-    public void Update() {
-        if (IsEngaged) {
-            if (ButtonUI.GetBottomText() != TurnOffText) {
-                ButtonUI.SetBottomText(TurnOffText);
-            }
-        } else {
-            if (ButtonUI.GetBottomText() != TurnOnText) {
-                ButtonUI.SetBottomText(TurnOnText);
-            }
-        }
+    
+    void Start() {
+        ButtonUI.SetBottomText(TurnOnText);
     }
 
     public void Interact() {
@@ -50,14 +44,29 @@ public class Lever : MonoBehaviour, IInteractable {
 
         obj.rotation = endRot;
 
+        TriggerMechanism();
+    }
+
+    private void TriggerMechanism() {
         IMechanism mechanism = ConnectedMechanism as IMechanism;
 
-        if (IsEngaged) {
-            mechanism.ToggleOff();
-        } else {
-            mechanism.ToggleOn();
-        }
         IsEngaged = !IsEngaged;
+
+        if (IsEngaged) {
+            mechanism.ToggleOn();
+        } else {
+            mechanism.ToggleOff();
+        }
+
+        if (IsEngaged) {
+            if (ButtonUI.GetBottomText() != TurnOffText) {
+                ButtonUI.SetBottomText(TurnOffText);
+            }
+        } else {
+            if (ButtonUI.GetBottomText() != TurnOnText) {
+                ButtonUI.SetBottomText(TurnOnText);
+            }
+        }
     }
 
     public InteractButton GetInteractButton() {

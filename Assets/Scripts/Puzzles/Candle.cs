@@ -12,7 +12,26 @@ public class Candle : MonoBehaviour, IInteractable {
     private string TurnOnText = "Light Candle";
     private string TurnOffText = "Extinguish Candle";
 
-    public void Update() {
+    void Start() {
+        ButtonUI.SetBottomText(TurnOnText);
+    }
+
+    public void Interact() {
+        if (ConnectedMechanism != null) {
+            TriggerMechanism();
+        }
+    }
+
+    private void TriggerMechanism() {
+        IMechanism mechanism = ConnectedMechanism as IMechanism;
+
+        if (IsLit) {
+            mechanism.ToggleOff();
+        } else {
+            mechanism.ToggleOn();
+        }
+        IsLit = !IsLit;
+
         if (IsLit) {
             if (ButtonUI.GetBottomText() != TurnOffText) {
                 ButtonUI.SetBottomText(TurnOffText);
@@ -21,19 +40,6 @@ public class Candle : MonoBehaviour, IInteractable {
             if (ButtonUI.GetBottomText() != TurnOnText) {
                 ButtonUI.SetBottomText(TurnOnText);
             }
-        }
-    }
-
-    public void Interact() {
-        if (ConnectedMechanism != null) {
-            IMechanism mechanism = ConnectedMechanism as IMechanism;
-
-            if (IsLit) {
-                mechanism.ToggleOff();
-            } else {
-                mechanism.ToggleOn();
-            }
-            IsLit = !IsLit;
         }
     }
 
