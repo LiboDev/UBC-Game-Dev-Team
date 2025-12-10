@@ -37,49 +37,23 @@ public class DoubleDoor : MonoBehaviour, IMechanism {
         IsActivated = true;
     }
 
-    void MoveDoors() {
-        MoveSideDoor1();
-        MoveSideDoor2();
-    }
-
-    // dir should be -1 or 1
-    public void MoveDoor(Transform obj, int dir, Vector3 goal) {
-        obj.localPosition += new Vector3(1 * dir, 0, 0) * Time.deltaTime;
-    }
-
-    void MoveSideDoor1() {
+    private void MoveDoors() {
         if (IsOpening) {
-            if (SideDoor1.localPosition.x > SideDoor1DefaultPos.x - SideDoorMovementRange) {
-                SideDoor1.localPosition = SideDoor1.localPosition - new Vector3(1, 0, 0) * Time.deltaTime;
-            } else {
-                SideDoor1.localPosition = SideDoor1DefaultPos - new Vector3(SideDoorMovementRange, 0, 0);
-                IsActivated = false;
-            }
+            MoveDoor(SideDoor1, -1, SideDoor1DefaultPos - new Vector3(SideDoorMovementRange, 0, 0));
+            MoveDoor(SideDoor2, 1, SideDoor2DefaultPos + new Vector3(SideDoorMovementRange, 0, 0));
         } else {
-            if (SideDoor1.localPosition.x < SideDoor1DefaultPos.x) {
-                SideDoor1.localPosition = SideDoor1.localPosition + new Vector3(1, 0, 0) * Time.deltaTime;
-            } else {
-                SideDoor1.localPosition = SideDoor1DefaultPos;
-                IsActivated = false;
-            }
+            MoveDoor(SideDoor1, 1, SideDoor1DefaultPos);
+            MoveDoor(SideDoor2, -1, SideDoor2DefaultPos);
         }
     }
 
-    void MoveSideDoor2() {
-        if (IsOpening) {
-            if (SideDoor2.localPosition.x < SideDoor2DefaultPos.x + SideDoorMovementRange) {
-                SideDoor2.localPosition = SideDoor2.localPosition + new Vector3(1, 0, 0) * Time.deltaTime;
-            } else {
-                SideDoor2.localPosition = SideDoor2DefaultPos + new Vector3(SideDoorMovementRange, 0, 0);
-                IsActivated = false;
-            }
-        } else {
-            if (SideDoor2.localPosition.x > SideDoor2DefaultPos.x) {
-                SideDoor2.localPosition = SideDoor2.localPosition - new Vector3(1, 0, 0) * Time.deltaTime;
-            } else {
-                SideDoor2.localPosition = SideDoor2DefaultPos;
-                IsActivated = false;
-            }
+    // dir should be either -1 or 1
+    private void MoveDoor(Transform obj, int dir, Vector3 goal) {
+        obj.localPosition += new Vector3(1 * dir, 0, 0) * Time.deltaTime;
+
+        if ((obj.localPosition.x - goal.x) * dir >= 0) {
+            obj.localPosition = goal;
+            IsActivated = false;
         }
     }
 }
