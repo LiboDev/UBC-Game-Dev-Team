@@ -22,7 +22,6 @@ public class SingleDoor : MonoBehaviour, IMechanism {
     void Update() {
         if (IsActivated) {
             MoveDoor();
-            print("yo");
         }
     }
 
