@@ -9,6 +9,8 @@ public class DoubleDoor : MonoBehaviour, IMechanism {
     Vector3 SideDoor1DefaultPos;
     Vector3 SideDoor2DefaultPos;
 
+    public float DoorSpeed = 1.0f;
+
     // How far the doors will slide open
     public float SideDoorMovementRange = 1.5f;
 
@@ -49,7 +51,7 @@ public class DoubleDoor : MonoBehaviour, IMechanism {
 
     // dir should be either -1 or 1
     private void MoveDoor(Transform obj, int dir, Vector3 goal) {
-        obj.localPosition += new Vector3(1 * dir, 0, 0) * Time.deltaTime;
+        obj.localPosition += new Vector3(dir, 0, 0) * DoorSpeed * Time.deltaTime;
 
         if ((obj.localPosition.x - goal.x) * dir >= 0) {
             obj.localPosition = goal;
